@@ -60,18 +60,26 @@ def make_chains(text_string):
             else:
                 chains[key].append(words_list[i+2])
 
-    for key, value in chains.items():
-        print(f"{key}: {value}")
+    # for key, value in chains.items():
+    #     print(f"{key}: {value}")
 
-    #return chains
+    return chains
 
 
 def make_text(chains):
     """Return text from chains."""
 
     words = []
+    link_key = choice(list(chains.keys()))
 
-    # your code goes here
+    while chains.get(link_key, 0) != 0:
+        word = choice(chains[link_key])
+        words.append(word)
+        link_key = (link_key[1], word)
+
+    # print(link_key)
+    # print(type(link_key))
+    # print(words)
 
     return ' '.join(words)
 
@@ -83,9 +91,9 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-#print(chains)
+
 
 # Produce random text
-#random_text = make_text(chains)
+random_text = make_text(chains)
 
-#print(random_text)
+print(random_text)
